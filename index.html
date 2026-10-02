@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+  <title>SideApps | iOS Developer Portfolio & Vertical Slice Showcase</title>
+  <meta name="description" content="Experienced iOS developer portfolio with 10+ years building high-performance apps for WashLoft, Capital One, Chewy, and Telehealth. Specializing in Swift, SwiftUI, UIKit, and modern architecture." />
+  <meta name="keywords" content="iOS developer, Swift developer, SwiftUI, UIKit, mobile app development, SideApps, Capital One, WashLoft, Chewy, iOS engineer, portfolio" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="SideApps | iOS Developer Portfolio" />
+  <meta property="og:description" content="Experienced iOS developer with 10+ years building apps for WashLoft, Capital One, and Chewy. Specializing in Swift, UIKit, and modern iOS development." />
+  <meta property="og:image" content="images/og-image.png" />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Ambient Glow Backdrops -->
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+  <div class="ambient-glow ambient-glow-3"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Floating Journey West / Logo Badge -->
+  <a href="#projects" class="journey-west-badge" title="Featured Apps Showcase" aria-label="Featured Apps Directory">
+    <img src="images/journeyWest/logo.png" alt="Journey West / SideApps Mark" />
+  </a>
+
+  <!-- ========================================================================
+       HERO SECTION
+       ======================================================================== -->
+  <header class="hero-section container">
+    <div class="status-pill">
+      <span class="status-dot"></span>
+      <span>Available for Senior & Lead iOS Roles</span>
+    </div>
+
+    <h1 class="hero-title">SideApps</h1>
+    <div class="hero-author">by Pavunraj & Kevin Sullivan</div>
+
+    <p class="hero-description">
+      Seasoned iOS developer with 10+ years of experience crafting high-performance mobile applications.
+      Expert in Swift, SwiftUI, UIKit, UI/UX design, and scalable architecture, delivering impactful solutions
+      for top enterprises like <b>Capital One</b>, <b>Chewy</b>, and <b>WashLoft</b>. Passionate about building seamless,
+      user-centric experiences that drive results!
+    </p>
+
+    <!-- Social / Contact Quick Action Badges -->
+    <div class="social-links">
+      <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-button" id="btn-github">
+        <img src="images/links/github.png" alt="GitHub Logo" />
+        <span>GitHub</span>
+      </a>
+
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-button" id="btn-linkedin">
+        <img src="images/links/linkedIn.png" alt="LinkedIn Logo" />
+        <span>LinkedIn</span>
+      </a>
+
+      <a href="#contact" class="social-button" id="btn-resume">
+        <img src="images/links/resume.png" alt="Resume Icon" />
+        <span>Resume</span>
+      </a>
+
+      <a href="#assistant" class="social-button primary-action" id="btn-chat">
+        <img src="images/links/messages.png" alt="Messages Icon" />
+        <span>Chat with Assistant</span>
+      </a>
+    </div>
+
+    <!-- Mouse Scroll Down Indicator -->
+    <a href="#projects" class="scroll-indicator" aria-label="Scroll to projects">
+      <div class="mouse-icon">
+        <div class="mouse-wheel"></div>
+      </div>
+      <span>Scroll to Explore Apps</span>
+    </a>
+  </header>
+
+  <!-- ========================================================================
+       PROJECTS SECTION (Vertical Slices)
+       ======================================================================== -->
+  <main class="projects-section container" id="projects">
+    <div class="section-tag">
+      <span>Featured App Productions</span>
+    </div>
+
+    <!-- 1. WashLoft -->
+    <article class="project-card" id="project-washloft">
+      <div class="project-info">
+        <div class="project-header-row">
+          <div class="project-app-icon">
+            <img src="images/washloft/icon.png" alt="WashLoft App Icon" />
+          </div>
+          <div class="project-title-group">
+            <span class="project-category">On-Demand Laundry & Logistics</span>
+            <h2 class="project-title">WashLoft</h2>
+          </div>
+        </div>
+
+        <p class="project-summary">
+          Uber for laundry. An on-demand, full-service laundry app that allows users to book pickup for their dirty
+          laundry and schedule delivery of clean and folded clothes right to their doorstep.
+        </p>
+
+        <ul class="project-highlights">
+          <li>Solo developer for the mobile app using <b>Swift</b>, <b>Firebase</b>, and <b>Stripe</b></li>
+          <li>Worked closely with designer to implement the <b>UI and UX</b></li>
+          <li>Serves <b>100s of orders per month</b> in the greater Boston area</li>
+          <li>Developed <b>companion apps</b> for drivers and washers to streamline the laundry process</li>
+          <li>Designed a <b>shared SPM package</b> to streamline the codebase and reduce redundancy</li>
+        </ul>
+
+        <div class="project-cta-group">
+          <a href="https://apps.apple.com/us/app/washloft/id1290033575" target="_blank" rel="noopener noreferrer" class="app-store-btn" id="btn-washloft-appstore">
+            <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.69-7.85-11.97-14.42-6.53-9.9-11.75-21.2-15.66-33.91-3.91-12.71-5.87-24.87-5.87-36.48 0-15.22 3.91-28.04 11.74-38.48 7.82-10.43 17.72-15.76 29.68-15.98 4.78 0 10.11 1.25 15.98 3.75 5.87 2.5 9.89 3.8 12.06 3.91 1.96 0 6.19-1.41 12.72-4.24 6.52-2.82 12.06-4.02 16.63-3.58 13.91.87 24.89 6.2 32.93 15.98-12.17 7.39-18.15 17.5-17.93 30.33.22 10.22 4.13 18.8 11.74 25.76 7.6 6.96 16.63 10.87 27.06 11.74-2.39 7.61-5.33 15.33-8.8 23.16zM119.22 33.7c0-7.39 2.72-14.46 8.15-21.2 5.43-6.74 12.07-11.2 19.89-13.37.65 1.52.98 3.15.98 4.89 0 7.39-2.83 14.56-8.48 21.52-5.65 6.96-12.28 11.08-19.89 12.39-.22-1.3-.65-2.71-.65-4.23z"/></svg>
+            <span>View on App Store</span>
+          </a>
+          <button class="case-study-btn zoom-trigger-btn">
+            <span>Inspect Screens (Double Click)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Vertical Slice Phone Mockup -->
+      <div class="visual-slice-wrapper">
+        <div class="iphone-frame">
+          <div class="iphone-speaker"></div>
+          <div class="iphone-dynamic-island">
+            <div class="camera-lens"></div>
+            <div class="sensor-dot"></div>
+          </div>
+
+          <!-- Vertical Slice Track -->
+          <div class="iphone-screen">
+            <div class="slice-track">
+              <div class="vertical-slice-item"><img src="images/washloft/screenshot1.png" alt="WashLoft Screen 1" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/washloft/screenshot2.png" alt="WashLoft Screen 2" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/washloft/screenshot3.png" alt="WashLoft Screen 3" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/washloft/screenshot4.png" alt="WashLoft Screen 4" loading="lazy" /></div>
+            </div>
+
+            <!-- In-Phone Vertical Nav Dots -->
+            <div class="slice-nav-overlay">
+              <span class="slice-nav-dot active"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+            </div>
+
+            <div class="slice-tap-hint">Tap / Scroll Vertical Slices</div>
+          </div>
+
+          <div class="iphone-home-bar"></div>
+        </div>
+
+        <!-- Vertical Slice Navigation Buttons -->
+        <div class="slice-nav-arrows">
+          <button class="slice-btn-vertical slice-btn-up" aria-label="Previous screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+          </button>
+          <button class="slice-btn-vertical slice-btn-down" aria-label="Next screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+          </button>
+        </div>
+
+        <!-- Vertical Thumbnails Strip -->
+        <div class="vertical-slices-strip">
+          <div class="slice-thumb active"><img src="images/washloft/screenshot1.png" alt="Thumb 1" /></div>
+          <div class="slice-thumb"><img src="images/washloft/screenshot2.png" alt="Thumb 2" /></div>
+          <div class="slice-thumb"><img src="images/washloft/screenshot3.png" alt="Thumb 3" /></div>
+          <div class="slice-thumb"><img src="images/washloft/screenshot4.png" alt="Thumb 4" /></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. Capital One (Reversed Layout) -->
+    <article class="project-card is-reversed" id="project-capone">
+      <div class="project-info">
+        <div class="project-header-row">
+          <div class="project-app-icon">
+            <img src="images/capone/icon.png" alt="Capital One Icon" />
+          </div>
+          <div class="project-title-group">
+            <span class="project-category">Enterprise Banking & Fintech</span>
+            <h2 class="project-title">Capital One</h2>
+          </div>
+        </div>
+
+        <p class="project-summary">
+          A nationally recognized banking application that empowers millions of small businesses and consumers
+          to manage accounts, track finances, and execute real-time money transfers with bank-grade security.
+        </p>
+
+        <ul class="project-highlights">
+          <li><b>Technical Lead</b> for the Small Business Banking mobile team</li>
+          <li>Increased parity with web and consumer functionality by <b>over 70% in the first year</b></li>
+          <li>Implemented features that served <b>over 10,000 unique users</b> daily</li>
+          <li>Increased code coverage to <b>over 90%</b> across all supported features</li>
+          <li>Drove architecture and development via <b>cross-functional squads</b></li>
+        </ul>
+
+        <div class="project-cta-group">
+          <a href="https://apps.apple.com/us/app/capital-one-mobile/id407558537" target="_blank" rel="noopener noreferrer" class="app-store-btn" id="btn-capone-appstore">
+            <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.69-7.85-11.97-14.42-6.53-9.9-11.75-21.2-15.66-33.91-3.91-12.71-5.87-24.87-5.87-36.48 0-15.22 3.91-28.04 11.74-38.48 7.82-10.43 17.72-15.76 29.68-15.98 4.78 0 10.11 1.25 15.98 3.75 5.87 2.5 9.89 3.8 12.06 3.91 1.96 0 6.19-1.41 12.72-4.24 6.52-2.82 12.06-4.02 16.63-3.58 13.91.87 24.89 6.2 32.93 15.98-12.17 7.39-18.15 17.5-17.93 30.33.22 10.22 4.13 18.8 11.74 25.76 7.6 6.96 16.63 10.87 27.06 11.74-2.39 7.61-5.33 15.33-8.8 23.16zM119.22 33.7c0-7.39 2.72-14.46 8.15-21.2 5.43-6.74 12.07-11.2 19.89-13.37.65 1.52.98 3.15.98 4.89 0 7.39-2.83 14.56-8.48 21.52-5.65 6.96-12.28 11.08-19.89 12.39-.22-1.3-.65-2.71-.65-4.23z"/></svg>
+            <span>View on App Store</span>
+          </a>
+          <button class="case-study-btn zoom-trigger-btn">
+            <span>Inspect Screens (Double Click)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Vertical Slice Phone Mockup -->
+      <div class="visual-slice-wrapper">
+        <div class="iphone-frame">
+          <div class="iphone-speaker"></div>
+          <div class="iphone-dynamic-island">
+            <div class="camera-lens"></div>
+            <div class="sensor-dot"></div>
+          </div>
+
+          <div class="iphone-screen">
+            <div class="slice-track">
+              <div class="vertical-slice-item"><img src="images/capone/screenshot1.png" alt="Capital One Screen 1" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/capone/screenshot2.png" alt="Capital One Screen 2" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/capone/screenshot3.png" alt="Capital One Screen 3" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/capone/screenshot4.png" alt="Capital One Screen 4" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/capone/screenshot5.png" alt="Capital One Screen 5" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/capone/screenshot6.png" alt="Capital One Screen 6" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/capone/screenshot7.png" alt="Capital One Screen 7" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/capone/screenshot8.png" alt="Capital One Screen 8" loading="lazy" /></div>
+            </div>
+
+            <div class="slice-nav-overlay">
+              <span class="slice-nav-dot active"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+            </div>
+
+            <div class="slice-tap-hint">Tap / Scroll Vertical Slices</div>
+          </div>
+
+          <div class="iphone-home-bar"></div>
+        </div>
+
+        <div class="slice-nav-arrows">
+          <button class="slice-btn-vertical slice-btn-up" aria-label="Previous screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+          </button>
+          <button class="slice-btn-vertical slice-btn-down" aria-label="Next screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+          </button>
+        </div>
+
+        <div class="vertical-slices-strip">
+          <div class="slice-thumb active"><img src="images/capone/screenshot1.png" alt="Thumb 1" /></div>
+          <div class="slice-thumb"><img src="images/capone/screenshot2.png" alt="Thumb 2" /></div>
+          <div class="slice-thumb"><img src="images/capone/screenshot3.png" alt="Thumb 3" /></div>
+          <div class="slice-thumb"><img src="images/capone/screenshot4.png" alt="Thumb 4" /></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. Chewy PracticeHub -->
+    <article class="project-card" id="project-chewy">
+      <div class="project-info">
+        <div class="project-header-row">
+          <div class="project-app-icon">
+            <img src="images/chewy/icon.png" alt="Chewy PracticeHub Icon" />
+          </div>
+          <div class="project-title-group">
+            <span class="project-category">Healthcare & Veterinary Commerce</span>
+            <h2 class="project-title">Chewy PracticeHub</h2>
+          </div>
+        </div>
+
+        <p class="project-summary">
+          A mission-critical enterprise platform empowering veterinarians to manage their clinics, track patient histories,
+          and seamlessly approve pet prescription orders from pet parents in real time.
+        </p>
+
+        <ul class="project-highlights">
+          <li><b>Lead Mobile Engineer</b> on the PracticeHub team</li>
+          <li><b>Built a world-class team</b> of iOS and Android engineers to support PracticeHub</li>
+          <li>Reduced customer service workload <b>by 99%</b> via self-service veterinarian workflows</li>
+          <li>Designed the <b>core mobile architecture</b> from day one</li>
+          <li>Delivered the app in <b>10 months</b> supporting <b>thousands of veterinary practices</b></li>
+        </ul>
+
+        <div class="project-cta-group">
+          <button class="case-study-btn zoom-trigger-btn">
+            <span>Inspect Slices</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="visual-slice-wrapper">
+        <div class="iphone-frame">
+          <div class="iphone-speaker"></div>
+          <div class="iphone-dynamic-island">
+            <div class="camera-lens"></div>
+            <div class="sensor-dot"></div>
+          </div>
+
+          <div class="iphone-screen">
+            <div class="slice-track">
+              <div class="vertical-slice-item"><img src="images/chewy/screenshot1.png" alt="Chewy Screen 1" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/chewy/screenshot2.png" alt="Chewy Screen 2" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/chewy/screenshot3.png" alt="Chewy Screen 3" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/chewy/screenshot4.png" alt="Chewy Screen 4" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/chewy/screenshot5.png" alt="Chewy Screen 5" loading="lazy" /></div>
+            </div>
+
+            <div class="slice-nav-overlay">
+              <span class="slice-nav-dot active"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+            </div>
+
+            <div class="slice-tap-hint">Tap / Scroll Vertical Slices</div>
+          </div>
+
+          <div class="iphone-home-bar"></div>
+        </div>
+
+        <div class="slice-nav-arrows">
+          <button class="slice-btn-vertical slice-btn-up" aria-label="Previous screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+          </button>
+          <button class="slice-btn-vertical slice-btn-down" aria-label="Next screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+          </button>
+        </div>
+
+        <div class="vertical-slices-strip">
+          <div class="slice-thumb active"><img src="images/chewy/screenshot1.png" alt="Thumb 1" /></div>
+          <div class="slice-thumb"><img src="images/chewy/screenshot2.png" alt="Thumb 2" /></div>
+          <div class="slice-thumb"><img src="images/chewy/screenshot3.png" alt="Thumb 3" /></div>
+          <div class="slice-thumb"><img src="images/chewy/screenshot4.png" alt="Thumb 4" /></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4. Alliance of American Football (Reversed Layout) -->
+    <article class="project-card is-reversed" id="project-aaf">
+      <div class="project-info">
+        <div class="project-header-row">
+          <div class="project-app-icon">
+            <img src="images/aaf/icon.png" alt="AAF Icon" />
+          </div>
+          <div class="project-title-group">
+            <span class="project-category">Live Sports & Real-Time Graphics</span>
+            <h2 class="project-title">Alliance of American Football</h2>
+          </div>
+        </div>
+
+        <p class="project-summary">
+          A revolutionary American football league app featuring live synchronous video streaming, real-time
+          in-game predictive odds, and custom 3D field graphics synced with player tracking sensors.
+        </p>
+
+        <ul class="project-highlights">
+          <li><b>Mobile Engineer</b> for the flagship AAF league application</li>
+          <li>Served over <b>10,000 concurrent fans</b> streaming live matches</li>
+          <li>Rendered real-time <b>custom 3D graphics</b> of player movements on the field</li>
+          <li>Engineered a custom scoreboard with sub-second real-time animations</li>
+          <li>Calculated live play-by-play odds using <b>predictive sports betting algorithms</b></li>
+        </ul>
+
+        <div class="project-cta-group">
+          <button class="case-study-btn zoom-trigger-btn">
+            <span>Inspect Screens</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="visual-slice-wrapper">
+        <div class="iphone-frame">
+          <div class="iphone-speaker"></div>
+          <div class="iphone-dynamic-island">
+            <div class="camera-lens"></div>
+            <div class="sensor-dot"></div>
+          </div>
+
+          <div class="iphone-screen">
+            <div class="slice-track">
+              <div class="vertical-slice-item"><img src="images/aaf/screenshot1.png" alt="AAF Screen 1" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/aaf/screenshot2.png" alt="AAF Screen 2" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/aaf/screenshot3.png" alt="AAF Screen 3" loading="lazy" /></div>
+            </div>
+
+            <div class="slice-nav-overlay">
+              <span class="slice-nav-dot active"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+            </div>
+
+            <div class="slice-tap-hint">Tap / Scroll Vertical Slices</div>
+          </div>
+
+          <div class="iphone-home-bar"></div>
+        </div>
+
+        <div class="slice-nav-arrows">
+          <button class="slice-btn-vertical slice-btn-up" aria-label="Previous screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+          </button>
+          <button class="slice-btn-vertical slice-btn-down" aria-label="Next screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+          </button>
+        </div>
+
+        <div class="vertical-slices-strip">
+          <div class="slice-thumb active"><img src="images/aaf/screenshot1.png" alt="Thumb 1" /></div>
+          <div class="slice-thumb"><img src="images/aaf/screenshot2.png" alt="Thumb 2" /></div>
+          <div class="slice-thumb"><img src="images/aaf/screenshot3.png" alt="Thumb 3" /></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 5. American Well for Clinicians -->
+    <article class="project-card" id="project-amwell">
+      <div class="project-info">
+        <div class="project-header-row">
+          <div class="project-app-icon">
+            <img src="images/amwell/icon.png" alt="American Well Icon" />
+          </div>
+          <div class="project-title-group">
+            <span class="project-category">HIPAA Telehealth & Video Consultations</span>
+            <h2 class="project-title">American Well for Clinicians</h2>
+          </div>
+        </div>
+
+        <p class="project-summary">
+          A telehealth platform enabling thousands of medical clinicians nationwide to conduct secure virtual visits,
+          coordinate patient care, and manage hospital scheduling workflows.
+        </p>
+
+        <ul class="project-highlights">
+          <li><b>Lead iOS Engineer & Manager</b> for the Clinicians flagship app</li>
+          <li>Served <b>thousands of clinicians</b> across US health systems</li>
+          <li>Spearheaded complete <b>Swift codebase migration</b> to modernize legacy architecture</li>
+          <li>Engineered <b>WebRTC video conferencing</b> and interactive schedule management</li>
+          <li>Integrated backend API services with zero HIPAA compliance compromise</li>
+        </ul>
+
+        <div class="project-cta-group">
+          <a href="https://apps.apple.com/us/app/american-well-for-clinicians/id982388638" target="_blank" rel="noopener noreferrer" class="app-store-btn" id="btn-amwell-appstore">
+            <svg viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.69-7.85-11.97-14.42-6.53-9.9-11.75-21.2-15.66-33.91-3.91-12.71-5.87-24.87-5.87-36.48 0-15.22 3.91-28.04 11.74-38.48 7.82-10.43 17.72-15.76 29.68-15.98 4.78 0 10.11 1.25 15.98 3.75 5.87 2.5 9.89 3.8 12.06 3.91 1.96 0 6.19-1.41 12.72-4.24 6.52-2.82 12.06-4.02 16.63-3.58 13.91.87 24.89 6.2 32.93 15.98-12.17 7.39-18.15 17.5-17.93 30.33.22 10.22 4.13 18.8 11.74 25.76 7.6 6.96 16.63 10.87 27.06 11.74-2.39 7.61-5.33 15.33-8.8 23.16zM119.22 33.7c0-7.39 2.72-14.46 8.15-21.2 5.43-6.74 12.07-11.2 19.89-13.37.65 1.52.98 3.15.98 4.89 0 7.39-2.83 14.56-8.48 21.52-5.65 6.96-12.28 11.08-19.89 12.39-.22-1.3-.65-2.71-.65-4.23z"/></svg>
+            <span>View on App Store</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="visual-slice-wrapper">
+        <div class="iphone-frame">
+          <div class="iphone-speaker"></div>
+          <div class="iphone-dynamic-island">
+            <div class="camera-lens"></div>
+            <div class="sensor-dot"></div>
+          </div>
+
+          <div class="iphone-screen">
+            <div class="slice-track">
+              <div class="vertical-slice-item"><img src="images/amwell/screenshot1.png" alt="AmWell Screen 1" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/amwell/screenshot2.png" alt="AmWell Screen 2" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/amwell/screenshot3.png" alt="AmWell Screen 3" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/amwell/screenshot4.png" alt="AmWell Screen 4" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/amwell/screenshot5.png" alt="AmWell Screen 5" loading="lazy" /></div>
+            </div>
+
+            <div class="slice-nav-overlay">
+              <span class="slice-nav-dot active"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+            </div>
+
+            <div class="slice-tap-hint">Tap / Scroll Vertical Slices</div>
+          </div>
+
+          <div class="iphone-home-bar"></div>
+        </div>
+
+        <div class="slice-nav-arrows">
+          <button class="slice-btn-vertical slice-btn-up" aria-label="Previous screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+          </button>
+          <button class="slice-btn-vertical slice-btn-down" aria-label="Next screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+          </button>
+        </div>
+
+        <div class="vertical-slices-strip">
+          <div class="slice-thumb active"><img src="images/amwell/screenshot1.png" alt="Thumb 1" /></div>
+          <div class="slice-thumb"><img src="images/amwell/screenshot2.png" alt="Thumb 2" /></div>
+          <div class="slice-thumb"><img src="images/amwell/screenshot3.png" alt="Thumb 3" /></div>
+          <div class="slice-thumb"><img src="images/amwell/screenshot4.png" alt="Thumb 4" /></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 6. SplatPal (Reversed Layout) -->
+    <article class="project-card is-reversed" id="project-splatpal">
+      <div class="project-info">
+        <div class="project-header-row">
+          <div class="project-app-icon">
+            <img src="images/splatpal/icon.png" alt="SplatPal Icon" />
+          </div>
+          <div class="project-title-group">
+            <span class="project-category">Gaming Companion & watchOS</span>
+            <h2 class="project-title">SplatPal</h2>
+          </div>
+        </div>
+
+        <p class="project-summary">
+          A beloved passion project featured on the App Store, serving as a companion app for Splatoon
+          players to track gear, weapons, loadouts, and live map rotations in real time.
+        </p>
+
+        <ul class="project-highlights">
+          <li><b>Featured App Store project</b> crafted with custom game aesthetics</li>
+          <li>Featured a custom <b>watchOS app</b> for the first generation Apple Watch</li>
+          <li>Integrated with Nintendo's <b>SplatNet API</b> for real-time map rotations</li>
+          <li>Custom SMS sharing module allowing players to share battle loadouts instantly</li>
+          <li>Comprehensive local database of all in-game items, abilities, and statistics</li>
+        </ul>
+
+        <div class="project-cta-group">
+          <button class="case-study-btn zoom-trigger-btn">
+            <span>Inspect Screens</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="visual-slice-wrapper">
+        <div class="iphone-frame">
+          <div class="iphone-speaker"></div>
+          <div class="iphone-dynamic-island">
+            <div class="camera-lens"></div>
+            <div class="sensor-dot"></div>
+          </div>
+
+          <div class="iphone-screen">
+            <div class="slice-track">
+              <div class="vertical-slice-item"><img src="images/splatpal/screenshot1.png" alt="SplatPal Screen 1" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/splatpal/screenshot2.png" alt="SplatPal Screen 2" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/splatpal/screenshot3.png" alt="SplatPal Screen 3" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/splatpal/screenshot4.png" alt="SplatPal Screen 4" loading="lazy" /></div>
+              <div class="vertical-slice-item"><img src="images/splatpal/screenshot5.png" alt="SplatPal Screen 5" loading="lazy" /></div>
+            </div>
+
+            <div class="slice-nav-overlay">
+              <span class="slice-nav-dot active"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+              <span class="slice-nav-dot"></span>
+            </div>
+
+            <div class="slice-tap-hint">Tap / Scroll Vertical Slices</div>
+          </div>
+
+          <div class="iphone-home-bar"></div>
+        </div>
+
+        <div class="slice-nav-arrows">
+          <button class="slice-btn-vertical slice-btn-up" aria-label="Previous screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+          </button>
+          <button class="slice-btn-vertical slice-btn-down" aria-label="Next screenshot">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+          </button>
+        </div>
+
+        <div class="vertical-slices-strip">
+          <div class="slice-thumb active"><img src="images/splatpal/screenshot1.png" alt="Thumb 1" /></div>
+          <div class="slice-thumb"><img src="images/splatpal/screenshot2.png" alt="Thumb 2" /></div>
+          <div class="slice-thumb"><img src="images/splatpal/screenshot3.png" alt="Thumb 3" /></div>
+          <div class="slice-thumb"><img src="images/splatpal/screenshot4.png" alt="Thumb 4" /></div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- ========================================================================
+       INTERACTIVE DEVELOPER ASSISTANT
+       ======================================================================== -->
+  <section class="chat-assistant-section container" id="assistant">
+    <div class="chat-card">
+      <div class="chat-card-header">
+        <div class="chat-badge">Interactive Intelligence</div>
+        <h2 class="chat-title">Chat with iOS Assistant</h2>
+        <p class="chat-subtitle">Ask questions about architecture, Swift experience, or past enterprise projects.</p>
+      </div>
+
+      <div class="chat-chips-title">Recommended Inquiries:</div>
+      <div class="chat-chips-grid">
+        <button class="prompt-chip" data-query="Tell me about your Capital One experience">🏦 Capital One Lead</button>
+        <button class="prompt-chip" data-query="How did you build WashLoft?">🧺 WashLoft Tech</button>
+        <button class="prompt-chip" data-query="What is your core iOS tech stack?">⚡ Tech Stack & Swift</button>
+        <button class="prompt-chip" data-query="What architecture patterns do you use?">📐 Architecture & MVVM</button>
+        <button class="prompt-chip" data-query="How can I get in touch with you?">📬 Contact & Hire</button>
+      </div>
+
+      <div class="chat-window" id="chat-window">
+        <div class="chat-msg bot">
+          <div class="chat-avatar">AI</div>
+          <div class="chat-bubble">
+            Hello! I'm your interactive iOS developer portfolio guide. Ask me anything about apps built,
+            Swift design patterns, or technical leadership experience.
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-bar">
+        <input type="text" id="chat-input" placeholder="Type a question (e.g., 'What apps have you built?')..." />
+        <button class="chat-send-btn" id="chat-send-btn">
+          <span>Send</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       DEVELOPER SPOTLIGHT & STATS
+       ======================================================================== -->
+  <section class="spotlight-section container">
+    <div class="spotlight-card">
+      <div class="spotlight-header">
+        <div class="spotlight-tag">Architect Profile</div>
+        <h2 class="spotlight-name">Senior iOS Developer</h2>
+        <p class="spotlight-role">Specializing in Swift, SwiftUI, UIKit, Combine, Modular SPM, and Scalable Architecture</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-value">10+</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">6+</span>
+          <span class="stat-label">Enterprise Apps</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">100k+</span>
+          <span class="stat-label">Active Users</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">90%+</span>
+          <span class="stat-label">Code Test Coverage</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       GET IN TOUCH & FOOTER
+       ======================================================================== -->
+  <section class="contact-section container" id="contact">
+    <div class="contact-box">
+      <h2 class="contact-title">Get In Touch</h2>
+      <p class="contact-desc">
+        Interested in collaborating, hiring for senior/lead iOS engineering, or discussing custom app development?
+      </p>
+
+      <button class="email-copy-pill copy-email-btn" data-email="contact@sideapps.dev" title="Click to copy email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <span>contact@sideapps.dev</span>
+        <span class="copy-badge">Copy</span>
+      </button>
+
+      <div class="social-links">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-button">
+          <img src="images/links/github.png" alt="GitHub" />
+          <span>GitHub</span>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-button">
+          <img src="images/links/linkedIn.png" alt="LinkedIn" />
+          <span>LinkedIn</span>
+        </a>
+        <a href="mailto:contact@sideapps.dev" class="social-button">
+          <img src="images/links/messages.png" alt="Direct Message" />
+          <span>Email Direct</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div>&copy; 2026 SideApps / Pavunraj. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#projects">Apps</a>
+        <a href="#assistant">Assistant</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Fullscreen Modal -->
+  <div class="lightbox-modal" id="lightbox-modal">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close Lightbox">&times;</button>
+      <img src="" alt="Expanded Screenshot" class="lightbox-img" id="lightbox-img" />
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notice" id="toast-notice">Copied to clipboard!</div>
+
+  <!-- Main JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>
