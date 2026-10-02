@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDevice3DTilt();
   initChatAssistant();
   initLightbox();
+  initResumeModal();
   initEmailCopy();
   initSmoothScroll();
 });
@@ -170,8 +171,9 @@ function initChatAssistant() {
     chewy: "For Chewy PracticeHub, I served as Lead Mobile Engineer. I designed the core mobile architecture and established the team that delivered the self-service veterinary medication approval system in under 10 months, slashing customer service overhead by 99%.",
     stack: "My core expertise includes Swift, SwiftUI, UIKit, Combine, async/await concurrency, CoreData/Realm, Modular SPM Architecture, CI/CD with Fastlane, REST & GraphQL APIs, Stripe payments, and WebSockets.",
     architecture: "I champion clean, modular architectures using MVVM-C (Model-View-ViewModel-Coordinator), unidirectional data flow, protocol-oriented programming, and isolated Swift Packages (SPM) for scalable maintenance.",
-    contact: "You can reach out directly via email at contact@sideapps.dev or pavunraj.ios@gmail.com, or connect with me on LinkedIn and GitHub!",
-    default: "Thank you for asking! I'm a veteran iOS Engineer specializing in enterprise-scale Swift applications, intuitive UI/UX, and robust mobile architecture. Feel free to explore my featured apps above or select one of the quick questions!"
+    contact: "You can reach out directly via email at contact@sideapps.dev or pavunrajtech@gmail.com, or connect with me on LinkedIn and GitHub!",
+    resume: "You can view my complete, 2-page Mobile Application Developer CV right here!<br><button class='chat-inline-btn' onclick='window.openResumeModal &amp;&amp; window.openResumeModal()'>📄 View Pavunraj's CV</button>",
+    default: "Thank you for asking! I'm a veteran iOS Engineer specializing in enterprise-scale Swift applications, intuitive UI/UX, and robust mobile architecture. Feel free to explore my featured apps above, view my resume, or select one of the quick questions!"
   };
 
   function addMessage(sender, text) {
@@ -184,7 +186,11 @@ function initChatAssistant() {
 
     const bubbleDiv = document.createElement('div');
     bubbleDiv.className = 'chat-bubble';
-    bubbleDiv.textContent = text;
+    if (sender === 'bot') {
+      bubbleDiv.innerHTML = text;
+    } else {
+      bubbleDiv.textContent = text;
+    }
 
     msgDiv.appendChild(avatarDiv);
     msgDiv.appendChild(bubbleDiv);
@@ -211,6 +217,8 @@ function initChatAssistant() {
         reply = responses.capitalone;
       } else if (lower.includes('chewy') || lower.includes('practicehub') || lower.includes('pet')) {
         reply = responses.chewy;
+      } else if (lower.includes('resume') || lower.includes('cv') || lower.includes('experience') || lower.includes('background') || lower.includes('profile')) {
+        reply = responses.resume;
       } else if (lower.includes('stack') || lower.includes('technolog') || lower.includes('swift') || lower.includes('tools')) {
         reply = responses.stack;
       } else if (lower.includes('architecture') || lower.includes('mvvm') || lower.includes('pattern')) {
@@ -332,7 +340,7 @@ function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
+      if (targetId === '#' || targetId === '#resume') return;
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         e.preventDefault();
@@ -342,5 +350,293 @@ function initSmoothScroll() {
         });
       }
     });
+  });
+}
+
+/* ==========================================================================
+   7. Dynamic Screen-Fitting Resume / CV Modal
+   ========================================================================== */
+function initResumeModal() {
+  const modal = document.getElementById('resume-modal');
+  const backdrop = document.getElementById('resume-backdrop');
+  const closeBtn = document.getElementById('resume-close-btn');
+  const viewport = document.getElementById('resume-viewport');
+  const canvasContainer = document.getElementById('resume-canvas-container');
+  const loader = document.getElementById('resume-loader');
+  const iframeFallback = document.getElementById('resume-iframe-fallback');
+  const pageIndicator = document.getElementById('resume-page-indicator');
+  const zoomLevel = document.getElementById('resume-zoom-level');
+  const fitWidthBtn = document.getElementById('resume-fit-width');
+  const fitPageBtn = document.getElementById('resume-fit-page');
+  const zoomInBtn = document.getElementById('resume-zoom-in');
+  const zoomOutBtn = document.getElementById('resume-zoom-out');
+
+  if (!modal || !viewport || !canvasContainer) return;
+
+  const pdfUrl = 'assets/Pavunraj_Palanisamy_Resume.pdf';
+  let pdfDoc = null;
+  let totalPages = 0;
+  let unscaledPageWidth = 612;
+  let unscaledPageHeight = 792;
+  let fitMode = 'fit-width'; // 'fit-width' | 'fit-page' | 'manual'
+  let currentScale = 1.0;
+  let isPdfLoaded = false;
+  let isRendering = false;
+  let renderQueue = false;
+
+  // Configure PDF.js worker
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'js/vendor/pdf.worker.min.js';
+  }
+
+  function openResume() {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    modal.focus();
+
+    if (!isPdfLoaded) {
+      loadPdfDocument();
+    } else {
+      recalculateFitAndRender();
+    }
+  }
+
+  function closeResume() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Expose globally for inline buttons or triggers
+  window.openResumeModal = openResume;
+  window.closeResumeModal = closeResume;
+
+  // Bind all triggers (buttons, anchors)
+  document.querySelectorAll('#btn-resume, .open-resume-trigger, a[href="#resume"]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      openResume();
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeResume);
+  if (backdrop) backdrop.addEventListener('click', closeResume);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeResume();
+    }
+  });
+
+  // Calculate dynamic scale based on container dimensions
+  function calculateScale() {
+    if (!viewport) return 1.0;
+
+    // Viewport inner dimensions subtracting margins/padding
+    const paddingX = window.innerWidth <= 768 ? 16 : 48;
+    const paddingY = window.innerWidth <= 768 ? 24 : 56;
+
+    const availableWidth = Math.max(260, viewport.clientWidth - paddingX);
+    const availableHeight = Math.max(300, viewport.clientHeight - paddingY);
+
+    if (fitMode === 'fit-width') {
+      const scale = availableWidth / unscaledPageWidth;
+      return Math.min(Math.max(scale, 0.4), 2.2);
+    } else if (fitMode === 'fit-page') {
+      const scale = Math.min(
+        availableWidth / unscaledPageWidth,
+        availableHeight / unscaledPageHeight
+      );
+      return Math.min(Math.max(scale, 0.35), 2.0);
+    }
+    return currentScale;
+  }
+
+  function updateZoomLabel() {
+    if (zoomLevel) {
+      zoomLevel.textContent = Math.round(currentScale * 100) + '%';
+    }
+  }
+
+  function updateModeButtons() {
+    if (fitWidthBtn) fitWidthBtn.classList.toggle('active', fitMode === 'fit-width');
+    if (fitPageBtn) fitPageBtn.classList.toggle('active', fitMode === 'fit-page');
+  }
+
+  // Load PDF with PDF.js, with fallback to embedded iframe
+  async function loadPdfDocument() {
+    if (!window.pdfjsLib) {
+      useFallbackViewer();
+      return;
+    }
+
+    try {
+      if (loader) loader.classList.remove('hidden');
+      const loadingTask = window.pdfjsLib.getDocument(pdfUrl);
+      pdfDoc = await loadingTask.promise;
+      totalPages = pdfDoc.numPages;
+      isPdfLoaded = true;
+
+      // Read dimensions from page 1 to set natural aspect ratio
+      const firstPage = await pdfDoc.getPage(1);
+      const initialViewport = firstPage.getViewport({ scale: 1.0 });
+      unscaledPageWidth = initialViewport.width;
+      unscaledPageHeight = initialViewport.height;
+
+      recalculateFitAndRender();
+    } catch (err) {
+      console.warn('PDF.js failed to load PDF, falling back to embedded viewer:', err);
+      useFallbackViewer();
+    }
+  }
+
+  function useFallbackViewer() {
+    if (loader) loader.classList.add('hidden');
+    if (canvasContainer) canvasContainer.style.display = 'none';
+    if (iframeFallback) {
+      iframeFallback.style.display = 'block';
+    }
+    if (pageIndicator) pageIndicator.textContent = 'Pavunraj CV';
+  }
+
+  function recalculateFitAndRender() {
+    if (!pdfDoc) return;
+    if (fitMode !== 'manual') {
+      currentScale = calculateScale();
+    }
+    updateZoomLabel();
+    updateModeButtons();
+    renderAllPages();
+  }
+
+  // Render all pages onto canvases
+  async function renderAllPages() {
+    if (!pdfDoc) return;
+    if (isRendering) {
+      renderQueue = true;
+      return;
+    }
+    isRendering = true;
+
+    try {
+      canvasContainer.innerHTML = '';
+      const dpr = window.devicePixelRatio || 1;
+
+      for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+        const page = await pdfDoc.getPage(pageNum);
+        const pageViewport = page.getViewport({ scale: currentScale });
+
+        const pageWrapper = document.createElement('div');
+        pageWrapper.className = 'resume-page-wrapper';
+        pageWrapper.setAttribute('data-page-number', pageNum);
+
+        const canvas = document.createElement('canvas');
+        canvas.className = 'resume-page-canvas';
+        const ctx = canvas.getContext('2d', { alpha: false });
+
+        // Physical pixels (for crisp rendering on Retina / HiDPI screens)
+        canvas.width = Math.floor(pageViewport.width * dpr);
+        canvas.height = Math.floor(pageViewport.height * dpr);
+
+        // CSS display pixels (fit the layout)
+        canvas.style.width = Math.floor(pageViewport.width) + 'px';
+        canvas.style.height = Math.floor(pageViewport.height) + 'px';
+
+        const transform = dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null;
+
+        pageWrapper.appendChild(canvas);
+        canvasContainer.appendChild(pageWrapper);
+
+        const renderContext = {
+          canvasContext: ctx,
+          transform: transform,
+          viewport: pageViewport
+        };
+
+        await page.render(renderContext).promise;
+      }
+
+      setupIntersectionObserver();
+      if (loader) loader.classList.add('hidden');
+    } catch (e) {
+      console.error('Error rendering PDF pages:', e);
+    } finally {
+      isRendering = false;
+      if (renderQueue) {
+        renderQueue = false;
+        renderAllPages();
+      }
+    }
+  }
+
+  // Detect which page is currently in view and update page counter
+  let pageObserver = null;
+  function setupIntersectionObserver() {
+    if (pageObserver) pageObserver.disconnect();
+
+    const pageWrappers = canvasContainer.querySelectorAll('.resume-page-wrapper');
+    if (!pageWrappers.length) return;
+
+    pageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const num = entry.target.getAttribute('data-page-number');
+          if (pageIndicator && num) {
+            pageIndicator.textContent = `Page ${num} / ${totalPages}`;
+          }
+        }
+      });
+    }, {
+      root: viewport,
+      threshold: 0.5
+    });
+
+    pageWrappers.forEach(pw => pageObserver.observe(pw));
+  }
+
+  // Toolbar button handlers
+  if (fitWidthBtn) {
+    fitWidthBtn.addEventListener('click', () => {
+      fitMode = 'fit-width';
+      recalculateFitAndRender();
+    });
+  }
+
+  if (fitPageBtn) {
+    fitPageBtn.addEventListener('click', () => {
+      fitMode = 'fit-page';
+      recalculateFitAndRender();
+    });
+  }
+
+  if (zoomInBtn) {
+    zoomInBtn.addEventListener('click', () => {
+      fitMode = 'manual';
+      currentScale = Math.min(2.5, currentScale + 0.15);
+      updateZoomLabel();
+      updateModeButtons();
+      renderAllPages();
+    });
+  }
+
+  if (zoomOutBtn) {
+    zoomOutBtn.addEventListener('click', () => {
+      fitMode = 'manual';
+      currentScale = Math.max(0.35, currentScale - 0.15);
+      updateZoomLabel();
+      updateModeButtons();
+      renderAllPages();
+    });
+  }
+
+  // Dynamic window resizing with debounce
+  let resizeTimeout = null;
+  window.addEventListener('resize', () => {
+    if (!modal.classList.contains('active')) return;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      if (fitMode === 'fit-width' || fitMode === 'fit-page') {
+        recalculateFitAndRender();
+      }
+    }, 120);
   });
 }

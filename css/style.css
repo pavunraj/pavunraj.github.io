@@ -1376,3 +1376,385 @@ footer {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
 }
+
+/* ==========================================================================
+   Dynamic Screen-Fitting Resume / CV Modal
+   ========================================================================== */
+
+.resume-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.resume-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.resume-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 7, 11, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  cursor: pointer;
+}
+
+.resume-modal-dialog {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 980px;
+  height: 92vh;
+  max-height: 940px;
+  display: flex;
+  flex-direction: column;
+  background: #0d1117;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.95),
+              0 0 50px rgba(16, 185, 129, 0.15);
+  overflow: hidden;
+  transform: scale(0.96) translateY(14px);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.resume-modal.active .resume-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+/* Modal Toolbar */
+.resume-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.8rem 1.25rem;
+  background: rgba(18, 24, 33, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+.resume-toolbar-left,
+.resume-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.resume-toolbar-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.resume-doc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: -0.01em;
+}
+
+.resume-doc-badge svg {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.resume-page-indicator {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+/* Fit & Zoom controls */
+.resume-fit-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.22rem 0.35rem;
+  border-radius: 12px;
+}
+
+.resume-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 0.825rem;
+  font-weight: 500;
+  padding: 0.42rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  line-height: 1;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.resume-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.resume-btn.active {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(16, 185, 129, 0.35);
+  font-weight: 600;
+}
+
+.resume-btn.icon-only {
+  padding: 0.42rem 0.5rem;
+  width: 32px;
+  height: 32px;
+}
+
+.resume-zoom-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 0.15rem;
+}
+
+.resume-zoom-level {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 44px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.resume-action-btn {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.32);
+}
+
+.resume-action-btn:hover {
+  background: rgba(16, 185, 129, 0.26);
+  color: #ffffff;
+  border-color: rgba(16, 185, 129, 0.6);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);
+}
+
+.resume-close-btn {
+  color: #94a3b8;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+}
+
+.resume-close-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.4);
+  transform: rotate(90deg);
+}
+
+/* Modal Viewport */
+.resume-viewport {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  background: #090c10;
+  overflow-y: auto;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.resume-viewport::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.resume-viewport::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25);
+}
+.resume-viewport::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+}
+.resume-viewport::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.45);
+}
+
+/* Canvas Container */
+.resume-canvas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.resume-page-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75), 0 3px 12px rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resume-page-canvas {
+  display: block;
+  max-width: none;
+}
+
+/* Fallback iframe */
+.resume-iframe-fallback {
+  display: none;
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  border: none;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+/* Loader */
+.resume-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background: #090c10;
+  z-index: 10;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.resume-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.resume-spinner {
+  width: 46px;
+  height: 46px;
+  border: 3.5px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #10b981;
+  border-radius: 50%;
+  animation: resumeSpin 0.75s linear infinite;
+}
+
+@keyframes resumeSpin {
+  to { transform: rotate(360deg); }
+}
+
+.resume-loader p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Chat Inline Button */
+.chat-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0.4rem 0.2rem 0;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+
+.chat-inline-btn:hover {
+  background: rgba(16, 185, 129, 0.35);
+  color: #ffffff;
+  border-color: rgba(16, 185, 129, 0.7);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .resume-modal {
+    padding: 0;
+  }
+  .resume-modal-dialog {
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    border: none;
+  }
+  .resume-toolbar {
+    padding: 0.55rem 0.75rem;
+    gap: 0.4rem;
+  }
+  .resume-doc-badge span {
+    display: none;
+  }
+  .btn-text-desktop {
+    display: none;
+  }
+  .resume-fit-controls .resume-btn span {
+    display: none;
+  }
+  .resume-fit-controls .resume-btn {
+    padding: 0.38rem 0.45rem;
+    width: 28px;
+    height: 28px;
+  }
+  .resume-zoom-level {
+    font-size: 0.75rem;
+    min-width: 36px;
+  }
+  .resume-viewport {
+    padding: 0.75rem 0.4rem;
+  }
+}
+
