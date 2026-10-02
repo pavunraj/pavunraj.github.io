@@ -361,44 +361,26 @@ function initResumeModal() {
   const backdrop = document.getElementById('resume-backdrop');
   const closeBtn = document.getElementById('resume-close-btn');
   const viewport = document.getElementById('resume-viewport');
-  const canvasContainer = document.getElementById('resume-canvas-container');
-  const loader = document.getElementById('resume-loader');
-  const iframeFallback = document.getElementById('resume-iframe-fallback');
+  const pagesContainer = document.getElementById('resume-pages-container');
   const pageIndicator = document.getElementById('resume-page-indicator');
   const zoomLevel = document.getElementById('resume-zoom-level');
   const fitWidthBtn = document.getElementById('resume-fit-width');
   const fitPageBtn = document.getElementById('resume-fit-page');
   const zoomInBtn = document.getElementById('resume-zoom-in');
   const zoomOutBtn = document.getElementById('resume-zoom-out');
+  const pageWrappers = document.querySelectorAll('.resume-page-wrapper');
 
-  if (!modal || !viewport || !canvasContainer) return;
+  if (!modal || !viewport || !pagesContainer) return;
 
-  const pdfUrl = 'assets/Pavunraj_Palanisamy_Resume.pdf';
-  let pdfDoc = null;
-  let totalPages = 0;
-  let unscaledPageWidth = 612;
-  let unscaledPageHeight = 792;
+  const ASPECT_RATIO = 2448 / 3168; // width / height of original document
   let fitMode = 'fit-width'; // 'fit-width' | 'fit-page' | 'manual'
-  let currentScale = 1.0;
-  let isPdfLoaded = false;
-  let isRendering = false;
-  let renderQueue = false;
-
-  // Configure PDF.js worker
-  if (window.pdfjsLib) {
-    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'js/vendor/pdf.worker.min.js';
-  }
+  let currentZoom = 1.0;
 
   function openResume() {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     modal.focus();
-
-    if (!isPdfLoaded) {
-      loadPdfDocument();
-    } else {
-      recalculateFitAndRender();
-    }
+    applyDynamicFit();
   }
 
   function closeResume() {
@@ -427,216 +409,124 @@ function initResumeModal() {
     }
   });
 
-  // Calculate dynamic scale based on container dimensions
-  function calculateScale() {
-    if (!viewport) return 1.0;
-
-    // Viewport inner dimensions subtracting margins/padding
-    const paddingX = window.innerWidth <= 768 ? 16 : 48;
-    const paddingY = window.innerWidth <= 768 ? 24 : 56;
+  // Calculate dynamic dimensions to fit on screen
+  function applyDynamicFit() {
+    if (!viewport) return;
+    const isMobile = window.innerWidth <= 768;
+    const paddingX = isMobile ? 16 : 48;
+    const paddingY = isMobile ? 24 : 56;
 
     const availableWidth = Math.max(260, viewport.clientWidth - paddingX);
     const availableHeight = Math.max(300, viewport.clientHeight - paddingY);
 
     if (fitMode === 'fit-width') {
-      const scale = availableWidth / unscaledPageWidth;
-      return Math.min(Math.max(scale, 0.4), 2.2);
+      // Fit to available viewport width (up to 860px max width for clean readability)
+      const targetWidth = Math.min(availableWidth, 860);
+      pageWrappers.forEach(w => {
+        w.style.width = `${targetWidth}px`;
+        w.style.maxWidth = '100%';
+      });
+      currentZoom = targetWidth / 800;
     } else if (fitMode === 'fit-page') {
-      const scale = Math.min(
-        availableWidth / unscaledPageWidth,
-        availableHeight / unscaledPageHeight
-      );
-      return Math.min(Math.max(scale, 0.35), 2.0);
+      // Fit entire page vertically in viewport without vertical clipping
+      const targetHeight = Math.max(280, availableHeight);
+      const targetWidth = Math.min(Math.round(targetHeight * ASPECT_RATIO), availableWidth);
+      pageWrappers.forEach(w => {
+        w.style.width = `${targetWidth}px`;
+        w.style.maxWidth = '100%';
+      });
+      currentZoom = targetWidth / 800;
+    } else {
+      // Manual zoom mode
+      const baseWidth = Math.min(availableWidth, 800);
+      const targetWidth = Math.round(baseWidth * currentZoom);
+      pageWrappers.forEach(w => {
+        w.style.width = `${targetWidth}px`;
+        w.style.maxWidth = 'none';
+      });
     }
-    return currentScale;
-  }
 
-  function updateZoomLabel() {
     if (zoomLevel) {
-      zoomLevel.textContent = Math.round(currentScale * 100) + '%';
+      zoomLevel.textContent = `${Math.round(currentZoom * 100)}%`;
     }
-  }
 
-  function updateModeButtons() {
     if (fitWidthBtn) fitWidthBtn.classList.toggle('active', fitMode === 'fit-width');
     if (fitPageBtn) fitPageBtn.classList.toggle('active', fitMode === 'fit-page');
   }
 
-  // Load PDF with PDF.js, with fallback to embedded iframe
-  async function loadPdfDocument() {
-    if (!window.pdfjsLib) {
-      useFallbackViewer();
-      return;
-    }
-
-    try {
-      if (loader) loader.classList.remove('hidden');
-      const loadingTask = window.pdfjsLib.getDocument(pdfUrl);
-      pdfDoc = await loadingTask.promise;
-      totalPages = pdfDoc.numPages;
-      isPdfLoaded = true;
-
-      // Read dimensions from page 1 to set natural aspect ratio
-      const firstPage = await pdfDoc.getPage(1);
-      const initialViewport = firstPage.getViewport({ scale: 1.0 });
-      unscaledPageWidth = initialViewport.width;
-      unscaledPageHeight = initialViewport.height;
-
-      recalculateFitAndRender();
-    } catch (err) {
-      console.warn('PDF.js failed to load PDF, falling back to embedded viewer:', err);
-      useFallbackViewer();
-    }
-  }
-
-  function useFallbackViewer() {
-    if (loader) loader.classList.add('hidden');
-    if (canvasContainer) canvasContainer.style.display = 'none';
-    if (iframeFallback) {
-      iframeFallback.style.display = 'block';
-    }
-    if (pageIndicator) pageIndicator.textContent = 'Pavunraj CV';
-  }
-
-  function recalculateFitAndRender() {
-    if (!pdfDoc) return;
-    if (fitMode !== 'manual') {
-      currentScale = calculateScale();
-    }
-    updateZoomLabel();
-    updateModeButtons();
-    renderAllPages();
-  }
-
-  // Render all pages onto canvases
-  async function renderAllPages() {
-    if (!pdfDoc) return;
-    if (isRendering) {
-      renderQueue = true;
-      return;
-    }
-    isRendering = true;
-
-    try {
-      canvasContainer.innerHTML = '';
-      const dpr = window.devicePixelRatio || 1;
-
-      for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-        const page = await pdfDoc.getPage(pageNum);
-        const pageViewport = page.getViewport({ scale: currentScale });
-
-        const pageWrapper = document.createElement('div');
-        pageWrapper.className = 'resume-page-wrapper';
-        pageWrapper.setAttribute('data-page-number', pageNum);
-
-        const canvas = document.createElement('canvas');
-        canvas.className = 'resume-page-canvas';
-        const ctx = canvas.getContext('2d', { alpha: false });
-
-        // Physical pixels (for crisp rendering on Retina / HiDPI screens)
-        canvas.width = Math.floor(pageViewport.width * dpr);
-        canvas.height = Math.floor(pageViewport.height * dpr);
-
-        // CSS display pixels (fit the layout)
-        canvas.style.width = Math.floor(pageViewport.width) + 'px';
-        canvas.style.height = Math.floor(pageViewport.height) + 'px';
-
-        const transform = dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null;
-
-        pageWrapper.appendChild(canvas);
-        canvasContainer.appendChild(pageWrapper);
-
-        const renderContext = {
-          canvasContext: ctx,
-          transform: transform,
-          viewport: pageViewport
-        };
-
-        await page.render(renderContext).promise;
-      }
-
-      setupIntersectionObserver();
-      if (loader) loader.classList.add('hidden');
-    } catch (e) {
-      console.error('Error rendering PDF pages:', e);
-    } finally {
-      isRendering = false;
-      if (renderQueue) {
-        renderQueue = false;
-        renderAllPages();
-      }
-    }
-  }
-
-  // Detect which page is currently in view and update page counter
-  let pageObserver = null;
-  function setupIntersectionObserver() {
-    if (pageObserver) pageObserver.disconnect();
-
-    const pageWrappers = canvasContainer.querySelectorAll('.resume-page-wrapper');
-    if (!pageWrappers.length) return;
-
-    pageObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const num = entry.target.getAttribute('data-page-number');
-          if (pageIndicator && num) {
-            pageIndicator.textContent = `Page ${num} / ${totalPages}`;
-          }
-        }
-      });
-    }, {
-      root: viewport,
-      threshold: 0.5
-    });
-
-    pageWrappers.forEach(pw => pageObserver.observe(pw));
-  }
-
-  // Toolbar button handlers
+  // Toolbar handlers
   if (fitWidthBtn) {
     fitWidthBtn.addEventListener('click', () => {
       fitMode = 'fit-width';
-      recalculateFitAndRender();
+      applyDynamicFit();
     });
   }
 
   if (fitPageBtn) {
     fitPageBtn.addEventListener('click', () => {
       fitMode = 'fit-page';
-      recalculateFitAndRender();
+      applyDynamicFit();
     });
   }
 
   if (zoomInBtn) {
     zoomInBtn.addEventListener('click', () => {
       fitMode = 'manual';
-      currentScale = Math.min(2.5, currentScale + 0.15);
-      updateZoomLabel();
-      updateModeButtons();
-      renderAllPages();
+      currentZoom = Math.min(2.5, currentZoom + 0.15);
+      applyDynamicFit();
     });
   }
 
   if (zoomOutBtn) {
     zoomOutBtn.addEventListener('click', () => {
       fitMode = 'manual';
-      currentScale = Math.max(0.35, currentScale - 0.15);
-      updateZoomLabel();
-      updateModeButtons();
-      renderAllPages();
+      currentZoom = Math.max(0.35, currentZoom - 0.15);
+      applyDynamicFit();
     });
   }
 
-  // Dynamic window resizing with debounce
-  let resizeTimeout = null;
+  // Smooth jump to pages when clicking indicator
+  if (pageIndicator) {
+    pageIndicator.style.cursor = 'pointer';
+    pageIndicator.title = 'Click to jump between pages';
+    pageIndicator.addEventListener('click', () => {
+      const page1 = document.getElementById('resume-page-wrapper-1');
+      const page2 = document.getElementById('resume-page-wrapper-2');
+      if (pageIndicator.textContent.includes('1')) {
+        page2?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        page1?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
+  // Page Scroll Tracker
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const pageNum = entry.target.getAttribute('data-page');
+        if (pageIndicator && pageNum) {
+          pageIndicator.textContent = `Page ${pageNum} / 2`;
+        }
+      }
+    });
+  }, {
+    root: viewport,
+    threshold: 0.5
+  });
+
+  pageWrappers.forEach(w => observer.observe(w));
+
+  // Dynamic window resize listener with debounce
+  let resizeTimer = null;
   window.addEventListener('resize', () => {
     if (!modal.classList.contains('active')) return;
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
       if (fitMode === 'fit-width' || fitMode === 'fit-page') {
-        recalculateFitAndRender();
+        applyDynamicFit();
       }
-    }, 120);
+    }, 100);
   });
 }
+

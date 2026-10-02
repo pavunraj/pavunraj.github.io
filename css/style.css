@@ -1618,81 +1618,60 @@ footer {
   background: rgba(16, 185, 129, 0.45);
 }
 
-/* Canvas Container */
-.resume-canvas-container {
+/* Resume Pages Container */
+.resume-pages-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.75rem;
   width: 100%;
   padding-bottom: 2rem;
+  transition: all 0.25s ease;
 }
 
 .resume-page-wrapper {
   position: relative;
   display: flex;
   justify-content: center;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75), 0 3px 12px rgba(0, 0, 0, 0.5);
-  border-radius: 6px;
-  background: #ffffff;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.resume-page-canvas {
-  display: block;
-  max-width: none;
-}
-
-/* Fallback iframe */
-.resume-iframe-fallback {
-  display: none;
-  width: 100%;
-  height: 100%;
-  min-height: 500px;
-  border: none;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 4px 14px rgba(0, 0, 0, 0.5);
   border-radius: 8px;
   background: #ffffff;
+  overflow: hidden;
+  transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease, box-shadow 0.2s ease;
+  width: min(100%, 820px);
 }
 
-/* Loader */
-.resume-loader {
+.resume-page-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: auto;
+}
+
+.resume-page-number-tag {
   position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  background: #090c10;
-  z-index: 10;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.resume-loader.hidden {
-  opacity: 0;
-  visibility: hidden;
+  top: 12px;
+  right: 14px;
+  background: rgba(15, 23, 42, 0.8);
+  color: #94a3b8;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-.resume-spinner {
-  width: 46px;
-  height: 46px;
-  border: 3.5px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #10b981;
-  border-radius: 50%;
-  animation: resumeSpin 0.75s linear infinite;
-}
-
-@keyframes resumeSpin {
-  to { transform: rotate(360deg); }
-}
-
-.resume-loader p {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+.resume-page-wrapper:hover .resume-page-number-tag {
+  opacity: 1;
 }
 
 /* Chat Inline Button */

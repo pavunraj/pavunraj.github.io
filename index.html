@@ -812,17 +812,17 @@
 
       <!-- Viewport dynamically scales to fit screen dimensions -->
       <div class="resume-viewport" id="resume-viewport">
-        <!-- Loading State Indicator -->
-        <div class="resume-loader" id="resume-loader">
-          <div class="resume-spinner"></div>
-          <p>Loading Pavunraj's CV...</p>
+        <!-- Rendered Resume Pages (Instant & 100% Dynamic Cross-Platform) -->
+        <div class="resume-pages-container" id="resume-pages-container">
+          <div class="resume-page-wrapper" id="resume-page-wrapper-1" data-page="1">
+            <div class="resume-page-number-tag">Page 1</div>
+            <img src="assets/resume_page_1.png" alt="Pavunraj Palanisamy CV - Page 1" class="resume-page-img" id="resume-page-img-1" loading="eager" />
+          </div>
+          <div class="resume-page-wrapper" id="resume-page-wrapper-2" data-page="2">
+            <div class="resume-page-number-tag">Page 2</div>
+            <img src="assets/resume_page_2.png" alt="Pavunraj Palanisamy CV - Page 2" class="resume-page-img" id="resume-page-img-2" loading="eager" />
+          </div>
         </div>
-
-        <!-- Rendered Pages Container (PDF.js Canvas) -->
-        <div class="resume-canvas-container" id="resume-canvas-container"></div>
-
-        <!-- Fallback iframe -->
-        <iframe src="assets/Pavunraj_Palanisamy_Resume.pdf#view=FitH" class="resume-iframe-fallback" id="resume-iframe-fallback" title="Pavunraj Palanisamy CV"></iframe>
       </div>
     </div>
   </div>
@@ -830,8 +830,6 @@
   <!-- Toast Notification -->
   <div class="toast-notice" id="toast-notice">Copied to clipboard!</div>
 
-  <!-- PDF.js Engine -->
-  <script src="js/vendor/pdf.min.js"></script>
   <!-- Main JavaScript -->
   <script src="js/main.js"></script>
 </body>
