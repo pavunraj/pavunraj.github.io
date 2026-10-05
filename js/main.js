@@ -166,7 +166,8 @@ function initChatAssistant() {
   if (!chatWindow || !chatInput || !chatSendBtn) return;
 
   const responses = {
-    washloft: "WashLoft is an 'Uber for laundry' on-demand service. I built the mobile app solo using Swift, Firebase, and Stripe, handling pickup booking, wash preferences, and driver routing. It serves hundreds of orders every month across Greater Boston.",
+    emdha: "For <b>Emdha Premium</b> (<a href='https://www.emdha.sa' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>emdha.sa</a>), I architected and developed the native iOS app from scratch. Key achievements include building secure authentication flows (Nafath National IAM, Azure AD/O365 SSO, Biometrics), PKI-based digital signature workflows compliant with Saudi eTransactions Law, automated CI/CD and App Store deployments, and mentoring junior developers.",
+    rcu: "For <b>Royal Commission for AlUla (RCU)</b> (<a href='https://www.rcu.gov.sa/en/about-rcu' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>rcu.gov.sa</a>), I served as an End-to-End Solution Provider for the native mobile app ecosystem. My primary focus was hardening enterprise application security (multi-tier jailbreak detection, robust data encryption, SwiftShield code obfuscation), architecting a dynamic Theme Manager handler for brand styling & localized dark/light modes, and managing production releases to the Apple App Store.",
     capitalone: "At Capital One, I was Technical Lead for the Small Business Banking mobile team. I increased parity with web/consumer apps by over 70% in year one, served 10,000+ daily active users, and scaled unit test coverage beyond 90%.",
     chewy: "For Chewy PracticeHub, I served as Lead Mobile Engineer. I designed the core mobile architecture and established the team that delivered the self-service veterinary medication approval system in under 10 months, slashing customer service overhead by 99%.",
     stack: "My core expertise includes Swift, SwiftUI, UIKit, Combine, async/await concurrency, CoreData/Realm, Modular SPM Architecture, CI/CD with Fastlane, REST & GraphQL APIs, Stripe payments, and WebSockets.",
@@ -211,8 +212,10 @@ function initChatAssistant() {
       const lower = cleanQuery.toLowerCase();
       let reply = responses.default;
 
-      if (lower.includes('washloft') || lower.includes('laundry')) {
-        reply = responses.washloft;
+      if (lower.includes('emdha') || lower.includes('signature') || lower.includes('trust') || lower.includes('washloft') || lower.includes('laundry')) {
+        reply = responses.emdha;
+      } else if (lower.includes('rcu') || lower.includes('alula') || lower.includes('royal commission') || lower.includes('experience alula')) {
+        reply = responses.rcu;
       } else if (lower.includes('capital one') || lower.includes('banking') || lower.includes('capone')) {
         reply = responses.capitalone;
       } else if (lower.includes('chewy') || lower.includes('practicehub') || lower.includes('pet')) {
