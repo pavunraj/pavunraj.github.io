@@ -15,9 +15,9 @@ A modern, high-performance portfolio website inspired by [sideapps.dev](https://
     - `images/washloft/`
     - `images/capone/`
     - `images/chewy/`
-    - `images/aaf/`
-    - `images/amwell/`
-    - `images/splatpal/`
+    - `images/varta/`
+    - `images/lpem/`
+    - `images/fitapp/`
     - `images/links/`
     - `images/journeyWest/`
 - **Interactive iOS Developer Assistant**:

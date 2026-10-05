@@ -368,7 +368,7 @@ body {
    ========================================================================== */
 
 .projects-section {
-  padding: 4rem 0 8rem;
+  padding: 4rem 0 4rem;
   position: relative;
 }
 
@@ -796,20 +796,23 @@ body {
 }
 
 .slice-btn-vertical svg {
-  width: 14px;
-  height: 14px;
-  fill: currentColor;
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
 }
 
 .slice-nav-arrows {
-  position: absolute;
-  left: calc(100% + 18px);
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   z-index: 20;
+  margin: 0 10px;
+  align-self: center;
 }
 
 @media (max-width: 640px) {
@@ -823,8 +826,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-left: 20px;
-  max-height: 480px;
+  margin-left: 4px;
+  max-height: 520px;
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -1128,7 +1131,7 @@ body {
    ========================================================================== */
 
 .skills-section {
-  padding: 5rem 0 3rem;
+  padding: 2rem 0 3rem;
   position: relative;
 }
 
@@ -1234,14 +1237,13 @@ body {
   opacity: 1;
 }
 
-/* Exploration card special highlight */
+/* Exploration card styling */
 .skill-category-card.featured-exploration {
-  background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, rgba(13, 13, 16, 0.9) 100%);
-  border-color: rgba(16, 185, 129, 0.3);
+  border-color: var(--border-subtle);
 }
 
 .skill-category-card.featured-exploration:hover {
-  border-color: rgba(16, 185, 129, 0.6);
+  border-color: rgba(16, 185, 129, 0.5);
   box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.2);
 }
 

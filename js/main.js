@@ -42,16 +42,28 @@ function initVerticalSlices() {
       const translateY = -currentIndex * 100;
       track.style.transform = `translateY(${translateY}%)`;
 
+      // Update active slice
+      slices.forEach((slice, i) => {
+        slice.classList.toggle('active', i === currentIndex);
+      });
+
       // Update dots
       dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === currentIndex);
       });
 
-      // Update thumbnails
+      // Update thumbnails and scroll into view if needed
       thumbs.forEach((thumb, i) => {
-        thumb.classList.toggle('active', i === currentIndex);
+        const isActive = (i === currentIndex);
+        thumb.classList.toggle('active', isActive);
+        if (isActive && typeof thumb.scrollIntoView === 'function') {
+          thumb.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
       });
     }
+
+    // Initialize first slice
+    goToSlice(0);
 
     // Next / Prev button triggers
     if (upBtn) {
@@ -167,9 +179,12 @@ function initChatAssistant() {
 
   const responses = {
     emdha: "For <b>Emdha Premium</b> (<a href='https://www.emdha.sa' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>emdha.sa</a>), I architected and developed the native iOS app from scratch. Key achievements include building secure authentication flows (Nafath National IAM, Azure AD/O365 SSO, Biometrics), PKI-based digital signature workflows compliant with Saudi eTransactions Law, automated CI/CD and App Store deployments, and mentoring junior developers.",
+    emdhaSubscriber: "For <b>Emdha Subscriber App</b> (<a href='https://apps.apple.com/in/app/emdha-subscriber-app/id6742633058' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>App Store</a>), I engineered the native iOS product from scratch using <b>SwiftUI</b> and <b>MVVM Clean Architecture</b>. Features include Individual and Organization dual logins, OTP verification with RESTful APIs, modern page layouts, and integrated payment gateway flows for purchase plan subscriptions.",
     rcu: "For <b>Royal Commission for AlUla (RCU)</b> (<a href='https://www.rcu.gov.sa/en/about-rcu' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>rcu.gov.sa</a>), I served as an End-to-End Solution Provider for the native mobile app ecosystem. My primary focus was hardening enterprise application security (multi-tier jailbreak detection, robust data encryption, SwiftShield code obfuscation), architecting a dynamic Theme Manager handler for brand styling & localized dark/light modes, and managing production releases to the Apple App Store.",
     capitalone: "At Capital One, I was Technical Lead for the Small Business Banking mobile team. I increased parity with web/consumer apps by over 70% in year one, served 10,000+ daily active users, and scaled unit test coverage beyond 90%.",
     chewy: "For Chewy PracticeHub, I served as Lead Mobile Engineer. I designed the core mobile architecture and established the team that delivered the self-service veterinary medication approval system in under 10 months, slashing customer service overhead by 99%.",
+    lpem: "For <b>Lycée Privé Emile Metz</b> (<a href='https://apps.apple.com/lu/app/lyc%C3%A9e-priv%C3%A9-emile-metz/id6465954843' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>App Store</a>), I managed the complete iOS development lifecycle for a smart campus catering and reservation platform featuring 7-day advance meal bookings, Payconiq & My Card payments, and push notifications.",
+    fitApp: "For <b>FIT-App</b> (<a href='https://apps.apple.com/lu/app/fit-app/id6480184917' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>App Store</a>), I engineered core iOS features using Swift, UIKit, and REST APIs. Key contributions include building smart device/home automation prototype connectivity via Core Bluetooth, integrating location services, push notifications, and payment purchases, as well as delivering motivational FIT-Marathon events.",
     stack: "My core expertise includes Swift, SwiftUI, UIKit, Combine, async/await concurrency, CoreData/Realm, Modular SPM Architecture, CI/CD with Fastlane, REST & GraphQL APIs, Stripe payments, and WebSockets.",
     architecture: "I champion clean, modular architectures using MVVM-C (Model-View-ViewModel-Coordinator), unidirectional data flow, protocol-oriented programming, and isolated Swift Packages (SPM) for scalable maintenance.",
     contact: "You can reach out directly via email at pavunrajtech@gmail.com, call or WhatsApp at +91 9578634446, or connect with me on <a href='https://www.linkedin.com/in/pavunrajp' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>LinkedIn</a> and <a href='https://github.com/pavunraj' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>GitHub</a>!",
@@ -212,7 +227,9 @@ function initChatAssistant() {
       const lower = cleanQuery.toLowerCase();
       let reply = responses.default;
 
-      if (lower.includes('emdha') || lower.includes('signature') || lower.includes('trust') || lower.includes('washloft') || lower.includes('laundry')) {
+      if (lower.includes('subscriber') || lower.includes('purchase plan') || lower.includes('otp')) {
+        reply = responses.emdhaSubscriber;
+      } else if (lower.includes('emdha') || lower.includes('signature') || lower.includes('trust') || lower.includes('washloft') || lower.includes('laundry')) {
         reply = responses.emdha;
       } else if (lower.includes('rcu') || lower.includes('alula') || lower.includes('royal commission') || lower.includes('experience alula')) {
         reply = responses.rcu;
@@ -220,6 +237,10 @@ function initChatAssistant() {
         reply = responses.capitalone;
       } else if (lower.includes('chewy') || lower.includes('practicehub') || lower.includes('pet')) {
         reply = responses.chewy;
+      } else if (lower.includes('lpem') || lower.includes('emile metz') || lower.includes('lycée') || lower.includes('lycee') || lower.includes('dining')) {
+        reply = responses.lpem;
+      } else if (lower.includes('fit') || lower.includes('fitness') || lower.includes('marathon') || lower.includes('bluetooth')) {
+        reply = responses.fitApp;
       } else if (lower.includes('resume') || lower.includes('cv') || lower.includes('experience') || lower.includes('background') || lower.includes('profile')) {
         reply = responses.resume;
       } else if (lower.includes('stack') || lower.includes('technolog') || lower.includes('swift') || lower.includes('tools')) {
@@ -274,8 +295,8 @@ function initLightbox() {
   document.querySelectorAll('.zoom-trigger-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const parentSlice = btn.closest('.visual-slice-wrapper');
-      const activeImg = parentSlice ? parentSlice.querySelector('.vertical-slice-item img') : null;
+      const card = btn.closest('.project-card') || btn.closest('.visual-slice-wrapper');
+      const activeImg = card ? (card.querySelector('.vertical-slice-item.active img') || card.querySelector('.vertical-slice-item img')) : null;
       if (activeImg) {
         openLightbox(activeImg.src);
       }
