@@ -155,7 +155,7 @@ function initDevice3DTilt() {
 }
 
 /* ==========================================================================
-   3. Interactive iOS Developer Assistant ("Chat with Kevin / Assistant")
+   3. Interactive iOS Developer Assistant ("Chat with Pavunraj / Assistant")
    ========================================================================== */
 function initChatAssistant() {
   const chatWindow = document.getElementById('chat-window');
@@ -171,7 +171,7 @@ function initChatAssistant() {
     chewy: "For Chewy PracticeHub, I served as Lead Mobile Engineer. I designed the core mobile architecture and established the team that delivered the self-service veterinary medication approval system in under 10 months, slashing customer service overhead by 99%.",
     stack: "My core expertise includes Swift, SwiftUI, UIKit, Combine, async/await concurrency, CoreData/Realm, Modular SPM Architecture, CI/CD with Fastlane, REST & GraphQL APIs, Stripe payments, and WebSockets.",
     architecture: "I champion clean, modular architectures using MVVM-C (Model-View-ViewModel-Coordinator), unidirectional data flow, protocol-oriented programming, and isolated Swift Packages (SPM) for scalable maintenance.",
-    contact: "You can reach out directly via email at contact@sideapps.dev or pavunrajtech@gmail.com, or connect with me on LinkedIn and GitHub!",
+    contact: "You can reach out directly via email at pavunrajtech@gmail.com, call or WhatsApp at +91 9578634446, or connect with me on <a href='https://www.linkedin.com/in/pavunrajp' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>LinkedIn</a> and <a href='https://github.com/pavunraj' target='_blank' rel='noopener noreferrer' style='color:#6ee7b7;text-decoration:underline;'>GitHub</a>!",
     resume: "You can view my complete, 2-page Mobile Application Developer CV right here!<br><button class='chat-inline-btn' onclick='window.openResumeModal &amp;&amp; window.openResumeModal()'>📄 View Pavunraj's CV</button>",
     default: "Thank you for asking! I'm a veteran iOS Engineer specializing in enterprise-scale Swift applications, intuitive UI/UX, and robust mobile architecture. Feel free to explore my featured apps above, view my resume, or select one of the quick questions!"
   };
@@ -314,7 +314,7 @@ function initEmailCopy() {
 
   copyPills.forEach(pill => {
     pill.addEventListener('click', () => {
-      const email = pill.getAttribute('data-email') || 'contact@sideapps.dev';
+      const email = pill.getAttribute('data-email') || 'pavunrajtech@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
         showToast(`Copied ${email} to clipboard!`);
       }).catch(() => {
@@ -338,7 +338,7 @@ function initEmailCopy() {
    ========================================================================== */
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
       if (targetId === '#' || targetId === '#resume') return;
       const targetElement = document.querySelector(targetId);
